@@ -19,6 +19,7 @@ describe 'Travel Smart clicker', :type => :feature do
     visit 'https://www.travelsmartrewards.sg/'
 
     # Fill the login form
+    puts 'Filling the login form'
     expect(page).to have_content("Incentives for Singapore's Commuters")
     fill_in 'Email', with: EMAIL_ADDRESS
     fill_in 'Password', with: PASSWORD
@@ -26,6 +27,7 @@ describe 'Travel Smart clicker', :type => :feature do
 
     # Check to make sure we are on the correct page
     expect(page).to have_content('Spin to Win')
+    puts 'Login done'
 
     # Start the game!
     find('#wgt-game').click
@@ -33,9 +35,11 @@ describe 'Travel Smart clicker', :type => :feature do
 
     # Now the popup should shows, all left is to click
     within_frame find('.fancybox-iframe')[:id] do
+      puts 'Found the fancybox iframe'
       nturn = find('#points').native.text.to_i / 10
       nturn.times do
         find('#spin1').click
+        puts 'Clicked spin'
         sleep 10
       end
     end
