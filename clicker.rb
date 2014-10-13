@@ -52,11 +52,14 @@ describe 'Travel Smart clicker', :type => :feature do
     visit 'https://www.travelsmartrewards.sg/'
     click_on 'detailed records'
 
+    # We only consider winnings of current date
     `date` =~ /(\w{3} \w{3} \d+)/
     current_date = $1
     puts "Current date: #{current_date}"
 
+    # Get each row of reward
     find('#slab-rewards').native.text.split("\n").each do |str|
+      # Only print out if the reward is today
       puts "--------\nYOU HAVE WON SOMETHING!!!!!\n#{str}--------\n" if str =~ /#{current_date}/
     end
   end
