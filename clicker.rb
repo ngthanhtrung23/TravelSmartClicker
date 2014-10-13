@@ -3,8 +3,8 @@ require 'capybara/rspec'
 require 'capybara/dsl'
 require 'pry'
 
-EMAIL_ADDRESS = 'ngthanhtrung23@gmail.com'
-PASSWORD = 'Trung23'
+EMAIL_ADDRESS = 'dinhphuc10cdt2@yahoo.com'
+PASSWORD = 'Abcdefgh'
 
 Capybara.run_server = false
 Capybara.default_driver = :selenium
@@ -37,10 +37,13 @@ describe 'Travel Smart clicker', :type => :feature do
     within_frame find('.fancybox-iframe')[:id] do
       puts 'Found the fancybox iframe'
       nturn = find('#points').native.text.to_i / 10
-      nturn.times do
-        find('#spin1').click
-        puts 'Clicked spin'
-        sleep 10
+      while nturn > 0 do
+        nturn.times do
+          find('#spin1').click
+          puts 'Clicked spin'
+          sleep 10
+        end
+        nturn = find('#points').native.text.to_i / 10
       end
     end
   end
