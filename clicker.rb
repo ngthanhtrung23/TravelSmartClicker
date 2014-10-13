@@ -46,5 +46,19 @@ describe 'Travel Smart clicker', :type => :feature do
         nturn = find('#points').native.text.to_i / 10
       end
     end
+
+    # Check winnings
+    puts 'Go to winnings page'
+    visit 'https://www.travelsmartrewards.sg/'
+    click_on 'detailed records'
+
+    `date` =~ /(\w{3} \w{3} \d+)/
+    current_date = $1
+    puts "Current date: #{current_date}"
+
+    find('#slab-rewards').native.text.split("\n").each do |str|
+      puts "--------\nYOU HAVE WON SOMETHING!!!!!\n#{str}--------\n" if str =~ /#{current_date}/
+    end
   end
 end
+
