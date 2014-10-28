@@ -3,8 +3,12 @@ require 'capybara/rspec'
 require 'capybara/dsl'
 require 'pry'
 
-EMAIL_ADDRESS = 'dinhphuc10cdt2@yahoo.com'
-PASSWORD = 'Abcdefgh'
+# EMAIL_ADDRESS = 'dinhphuc10cdt2@yahoo.com'
+# PASSWORD = 'Abcdefgh'
+
+EMAIL_ADDRESS = 'ngthanhtrung23@gmail.com'
+PASSWORD = 'Trung23'
+
 
 Capybara.run_server = false
 Capybara.default_driver = :selenium
@@ -36,14 +40,13 @@ describe 'Travel Smart clicker', :type => :feature do
     # Now the popup should shows, all left is to click
     within_frame find('.fancybox-iframe')[:id] do
       puts 'Found the fancybox iframe'
-      nturn = find('#points').native.text.to_i / 10
-      while nturn > 0 do
-        nturn.times do
-          find('#spin1').click
-          puts 'Clicked spin'
-          sleep 10
-        end
-        nturn = find('#points').native.text.to_i / 10
+      cur_point = find('#points').native.text.to_i
+      while cur_point >= 10 do
+        find('#spin1').click
+        puts 'Clicked spin'
+        sleep 10
+
+        cur_point = find('#points').native.text.to_i
       end
     end
 
@@ -53,7 +56,7 @@ describe 'Travel Smart clicker', :type => :feature do
     click_on 'detailed records'
 
     # We only consider winnings of current date
-    `date` =~ /(\w{3} \w{3} \d+)/
+    `date +"%a %d %b %C%y"`
     current_date = $1
     puts "Current date: #{current_date}"
 
